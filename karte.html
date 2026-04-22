@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schiffskarte – Geographie-Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:   #0a1628;
+      --ocean:  #1a4a7a;
+      --blue:   #2278c3;
+      --cyan:   #4db8d4;
+      --light:  #e8f4f8;
+      --white:  #ffffff;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26,74,122,0.45) 0%, transparent 60%),
+        linear-gradient(170deg, #0a1628 0%, #0d2240 40%, #0f2d52 70%, #0a1628 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 32px;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .back-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+    .topbar-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--light);
+    }
+    .topbar-label small {
+      display: block;
+      font-size: 11px;
+      color: var(--cyan);
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* ── WIDGET AREA ── */
+    .widget-area {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      padding: 24px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .widget-wrapper {
+      flex: 1;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      min-height: 500px;
+    }
+
+    #myshiptrackingwidget {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    @media (max-width: 700px) {
+      .topbar { padding: 12px 16px; }
+      .widget-area { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <a class="back-btn" href="index.html">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+      </svg>
+      Zurück
+    </a>
+    <div class="topbar-label">
+      🚢 MyShipTracking
+      <small>Echtzeit-Schiffsverfolgung · Geographie-Projekt</small>
+    </div>
+  </div>
+
+  <!-- ── WIDGET ── -->
+  <div class="widget-area">
+    <div class="widget-wrapper">
+      <div id="myshiptrackingwidget"
+           data-width="100%"
+           data-height="100%"
+           data-zoom="3"
+           data-maptype="0"
+           data-vessel-label="true"
+           data-show-names="true">
+      </div>
+    </div>
+  </div>
+
+  <script id="myshiptrackingscript" src="//www.myshiptracking.com/js/widgetApi.js" async defer></script>
+</body>
+</html>
